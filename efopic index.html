@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EFOPIC Customer Feedback</title>
+    <style>
+        /* Professional Industrial Theme */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .form-card { background: white; padding: 40px; border-radius: 12px; border-top: 14px solid #0f2740; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 90%; max-width: 480px; }
+        
+        .factory-header { text-align: center; margin-bottom: 30px; }
+        .factory-name { font-size: 28px; font-weight: 800; color: #1a3a5a; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        .sub-text { color: #6c757d; font-size: 14px; margin-top: 8px; font-weight: 500; }
+
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #2c3e50; font-size: 14px; }
+        input, textarea, select { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-size: 16px; background-color: #fafafa; }
+        input:focus, textarea:focus { border-color: #1a3a5a; outline: none; background-color: #fff; }
+        
+        /* Submit Button - Success Green */
+        .btn-submit { background-color: #28a745; color: white; border: none; padding: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 18px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2); }
+        .btn-submit:hover { background-color: #218838; transform: translateY(-1px); box-shadow: 0 6px 8px rgba(40, 167, 69, 0.3); }
+
+        /* Success Message Styling */
+        #success-container { display: none; text-align: center; padding: 30px 10px; }
+        #success-container.visible { display: block; }
+        .hidden { display: none !important; }
+        .form-card { position: relative; }
+        .success-icon { font-size: 60px; color: #28a745; margin-bottom: 15px; }
+        .success-title { color: #1a3a5a; font-size: 24px; margin-bottom: 10px; }
+        .success-text { color: #495057; line-height: 1.6; }
+        .reload-link { display: inline-block; margin-top: 20px; color: #007bff; cursor: pointer; text-decoration: none; font-weight: 600; }
+
+        /* Responsive adjustments for small screens so success container is visible */
+        @media (max-width: 600px) {
+            body { align-items: flex-start; padding: 20px; }
+            .form-card { max-width: 100%; width: 100%; margin: 20px auto; padding: 20px; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+            #success-container { padding: 20px 8px; }
+            .success-icon { font-size: 48px; }
+            #success-container { max-height: 80vh; overflow: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <div class="factory-header">
+        <p class="factory-name">EFOPIC</p>
+        <p class="sub-text">Official Customer Feedback Portal</p>
+    </div>
+        <img src="LOGO Imgur.jpg" alt="EFOPIC Logo" style="display:block; margin: 0 auto 15px; width: 180px; height: auto;">
+    <!-- Fixed opening form tag here -->
+    <form id="feedbackForm">
+        <label for="customerName">Full Name</label>
+        <input type="text" id="customerName" name="name" placeholder="Enter your name" required>
+
+        <label for="feedbackType">Category</label>
+        <select id="feedbackType" name="category" required>
+            <option value="production">Production Quality</option>
+            <option value="service">General Service</option>
+            <option value="other">Other Suggestions</option>
+        </select>
+
+        <label for="comments">Your Feedback</label>
+        <textarea id="comments" name="comments" rows="9" placeholder="Provide your detailed feedback here..." required></textarea>
+
+        <button type="submit" class="btn-submit">SUBMIT TO EFOPIC</button>
+    </form>
+
+    <div id="success-container" role="status" aria-live="polite">
+        <div class="success-icon">✔</div>
+        <h2 class="success-title">Submission Successful</h2>
+        <p class="success-text">Your feedback has been successfully recorded. We appreciate your input in helping <strong>EFOPIC</strong> maintain the highest standards.</p>
+        <button type="button" id="resetBtn" class="reload-link">Submit another response</button>
+    </div>
+</div>
+
+<script>
+    const form = document.querySelector('#feedbackForm');
+    const successContainer = document.querySelector('#success-container');
+
+    function showSuccess() {
+        form.classList.add('hidden');
+        successContainer.classList.add('visible');
+        setTimeout(() => { successContainer.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 50);
+    }
+
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            showSuccess();
+        });
+    }
+
+    const resetBtn = document.querySelector('#resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            form.reset();
+            successContainer.classList.remove('visible');
+            form.classList.remove('hidden');
+            setTimeout(() => { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+        });
+    }
+</script>
+
+</body>
+</html>
